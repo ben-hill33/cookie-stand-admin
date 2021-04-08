@@ -1,5 +1,5 @@
 
-const Form = () => {
+const Footer = () => {
   return (
     <div className="flex p-3 bg-green-500">
       <p>&copy; 2021</p>
@@ -7,4 +7,4 @@ const Form = () => {
   )
 }
 
-export default Form;
+export default Footer;
