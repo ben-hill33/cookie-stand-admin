@@ -5,9 +5,7 @@ const Main = () => {
     <div className="">
 
       <Form />
-      <div>
-        <p >Report Table Coming Soon...</p>
-      </div>
+
     </div>
   )
 }
