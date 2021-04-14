@@ -1,35 +1,30 @@
 import { useState } from "react";
 
 
-const Form = () => {
-  // initial state set to empty string
-  // const [location, setLocation] = useState('');
-  // initial state set to zero 
-  const [count, setCount] = useState({
+export default function Form(props) {
+  const initialValues = {
     location: "",
-    minCustomers: "",
-    maxCustomers: "",
-    avgCustomers: "",
-  });
+    minCustomers: 0,
+    maxCustomers: 0,
+    avgCustomers: 0,
+  }
 
-  // const randomCount = replies[Math.floor(Math.random() * replies.length)]
-  // setCount(randomCount)
+  const [values, setValues] = useState(initialValues);
 
   const handleChange = (event) => {
-    const value = event.target.value;
-    setCount({
-      ...count,
-      [event.target.name]: value
-    });
+    let { name, value, type } = event.target;
+    
+    if (type === "number") {
+      value = parseFloat(value)
+    }
+    setValues({...values, [name]: value});
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(count)
-
-    // const randomCount = Math.random()
-
-    // setCount(0)
+    // onCreate(values);
+    setValues(initialValues);
+    props.tableData(values)
   }
 
   return (
@@ -43,12 +38,19 @@ const Form = () => {
         <form onSubmit={handleSubmit} className="mb-4 space-y-4">
           <div className="flex flex-wrap m-3">
             <div className="w-full">
-              <label className="block mb-1">Location</label>
+              <label 
+              className="block mb-1"
+              htmlFor="location"
+              >
+                Location
+              </label>
               <input 
-              name="location" 
+              name="location"
+              id="location" 
               type="text" 
-              value={count.location}
+              value={values.location}
               onChange={handleChange}
+              placeholder="Enter Location Name"
               className="w-full px-3 py-1 text-base text-gray-600 border rounded-lg focus:shadow-outline" 
               />
             </div>
@@ -56,10 +58,17 @@ const Form = () => {
 
           <div className="flex flex-wrap mx-3 my-3 text-center">
             <div className="w-1/4 px-2">
-              <label className="block mb-1">Minimum Customers per Hour</label>
+              <label 
+              className="block mb-1"
+              htmlFor="minCustomers"
+              >
+                Minimum Customers per Hour
+              </label>
               <input 
+              type="number"
               name="minCustomers"
-              value={count.minCustomers}
+              id="minCustomers"
+              value={values.minCustomers}
               onChange={handleChange}
               className="w-full h-10 px-3 text-base text-gray-600 border rounded-lg focus:shadow-outline" 
               />
@@ -67,19 +76,29 @@ const Form = () => {
 
             </div>
             <div className="w-1/4 px-2">
-              <label className="block mb-1">Maximum Customers per Hour</label>
+              <label 
+              className="block mb-1" 
+              htmlFor="maxCustomers"
+              >Maximum Customers per Hour</label>
               <input 
+              type="number"
               name="maxCustomers"
-              value={count.maxCustomers}
+              id="maxCustomers"
+              value={values.maxCustomers}
               onChange={handleChange}
               className="w-full h-10 px-3 text-base text-gray-600 border rounded-lg focus:shadow-outline" 
               />
             </div>
             <div className="w-1/4 px-2">
-              <label className="block mb-1">Average Cookies per Sale</label>
+              <label 
+              className="block mb-1"
+              htmlFor="avgCustomers"
+              >Average Cookies per Sale</label>
               <input 
+              type="number"
               name="avgCustomers"
-              value={count.avgCustomers}
+              id="avgCustomers"
+              value={values.avgCustomers}
               onChange={handleChange}
               className="w-full h-10 px-3 text-base text-gray-600 border rounded-lg focus:shadow-outline" 
               />
@@ -91,20 +110,8 @@ const Form = () => {
         </form>
     </div>
 
-    <div className="text-center">
-      <p className="mb-4">Report Table Coming Soon...</p>
-      <p className="mb-4">
-        Location: {count.location}, 
-        minCustomers: {count.minCustomers}, 
-        maxCustomers: {count.maxCustomers},
-        avgCustomers: {count.avgCustomers}
-      </p>
-      <p className="mb-4"></p>
-      
-    </div>
-
     </>
   );
 }
 
-export default Form;
+// export default Form;
